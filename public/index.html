@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hora do servidor</title>
+</head>
+<body>
+    <strong>Exemplo de Server Sent Events</strong>
+    <br> Hora atual no servidor:
+    <div id='horario-container'></div>
+    <br>
+    <script>
+        function atualizarTela(evento) {
+            document.querySelector('div#horario-container').innerText = new Date(evento.horario).toLocaleString("pt-BR");
+        }
+        var es = new EventSource("/sse");
+        es.addEventListener("relogio", function (evento) {
+            atualizarTela(JSON.parse(evento.data));
+        });
+    </script>
+</body>
+
+</html>
